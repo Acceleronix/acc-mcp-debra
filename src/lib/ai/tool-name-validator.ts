@@ -108,8 +108,6 @@ export function validateToolsForProvider(
     // Create new tool with sanitized name
     validatedTools[sanitizedName] = {
       ...tool,
-      // Preserve original name in metadata if needed
-      _originalName: originalName,
     };
     
     // Log when names are changed for debugging
