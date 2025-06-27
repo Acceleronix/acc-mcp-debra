@@ -25,12 +25,6 @@ async function getLocalFromHeader(): Promise<string | undefined> {
 }
 
 export async function getLocaleAction() {
-  let locale: string | undefined;
-
-  locale = await getLocaleFromCookie();
-  if (!locale) {
-    locale = await getLocalFromHeader();
-  }
-
-  return locale || SUPPORTED_LOCALES[0].code;
+  // Force English as default language
+  return "en";
 }
