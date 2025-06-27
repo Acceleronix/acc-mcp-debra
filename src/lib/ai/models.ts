@@ -17,6 +17,10 @@ const ollama = createOllama({
 });
 
 const staticModels = {
+  google: {
+    "gemini-2.5-flash": google("gemini-2.5-flash-preview-04-17"),
+    "gemini-2.5-pro": google("gemini-2.5-pro-preview-05-06"),
+  },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
     "gpt-4.1": openai("gpt-4.1"),
@@ -25,10 +29,6 @@ const staticModels = {
     "o4-mini": openai("o4-mini", {
       reasoningEffort: "medium",
     }),
-  },
-  google: {
-    "gemini-2.5-flash": google("gemini-2.5-flash-preview-04-17"),
-    "gemini-2.5-pro": google("gemini-2.5-pro-preview-05-06"),
   },
   anthropic: {
     "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
