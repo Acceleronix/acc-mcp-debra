@@ -1,0 +1,11 @@
+{
+  "cmp-mcp-server": {
+    "url": "https://cmp-mcp-server.zlinoliver.workers.dev/sse"
+  },
+  "acc-mcp-server": {
+    "url": "https://acc-mcp-server.zlinoliver.workers.dev/sse"
+  },
+  "swagger-mcp-server": {
+    "url": "https://swagger-mcp-server.zlinoliver.workers.dev/sse"
+  }
+}
