@@ -10,6 +10,7 @@ import {
 } from "ai";
 
 import { customModelProvider, isToolCallUnsupportedModel } from "lib/ai/models";
+import { validateToolsForProvider } from "lib/ai/tool-name-validator";
 
 import { mcpClientsManager } from "lib/ai/mcp/mcp-manager";
 
@@ -181,10 +182,13 @@ export async function POST(request: Request) {
             const bindingTools =
               toolChoice === "manual" ? excludeToolExecution(t) : t;
 
-            return {
+            const combinedTools = {
               ...getAllowedDefaultToolkit(allowedAppDefaultToolkit),
               ...bindingTools,
             };
+
+            // Validate tool names for the specific model provider (especially Gemini)
+            return validateToolsForProvider(combinedTools, model);
           })
           .unwrap();
 
