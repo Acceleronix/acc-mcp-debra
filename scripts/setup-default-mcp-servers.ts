@@ -1,4 +1,4 @@
-import { db } from "lib/db/pg/db.pg";
+import { pgDb } from "lib/db/pg/db.pg";
 import { McpServerSchema } from "lib/db/pg/schema.pg";
 import { eq } from "drizzle-orm";
 import type { MCPServerConfig } from "app-types/mcp";
@@ -30,7 +30,7 @@ async function setupDefaultMCPServers() {
   for (const server of DEFAULT_MCP_SERVERS) {
     try {
       // Check if server already exists
-      const existing = await db
+      const existing = await pgDb
         .select()
         .from(McpServerSchema)
         .where(eq(McpServerSchema.name, server.name))
@@ -38,7 +38,7 @@ async function setupDefaultMCPServers() {
 
       if (existing.length === 0) {
         // Insert new server
-        await db.insert(McpServerSchema).values({
+        await pgDb.insert(McpServerSchema).values({
           id: server.name,
           name: server.name,
           config: server.config,
