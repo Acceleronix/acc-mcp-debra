@@ -34,6 +34,7 @@ async function main() {
     }
     console.log("Running on Vercel, performing database migration.");
     await runCommand("pnpm db:migrate", "Database migration");
+    await runCommand("pnpm setup:mcp", "Setup default MCP servers");
   } else if (IS_DOCKER_ENV) {
     if (FILE_BASED_MCP_CONFIG) {
       console.error("File based MCP config is not supported in Docker.");
