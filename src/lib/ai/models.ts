@@ -19,8 +19,13 @@ const ollama = createOllama({
 
 // Create Google models with automatic key rotation
 function createGoogleModelWithRotation(modelName: string) {
+  const baseModel = google(modelName);
+  
   return {
-    // Mimic the LanguageModel interface
+    // Pass through base model properties first
+    ...baseModel,
+    
+    // Override with rotation logic
     doGenerate: async (options: any) => {
       let lastError: any;
       let attempts = 0;
@@ -89,10 +94,7 @@ function createGoogleModelWithRotation(modelName: string) {
       
       console.error(`All Google API keys failed for streaming after ${attempts} attempts`);
       throw lastError || new Error('All Google API keys are unavailable for streaming');
-    },
-    
-    // Pass through other properties from a base model
-    ...google(modelName)
+    }
   };
 }
 

@@ -34,12 +34,11 @@ export async function POST() {
         const googleProvider = createGoogleGenerativeAI({ apiKey });
         const model = googleProvider('gemini-2.5-flash-preview-04-17');
         
-        // Try a minimal generation
-        await model.doGenerate({
-          inputFormat: 'prompt',
-          prompt: [{ role: 'user', content: [{ type: 'text', text: 'Hi' }] }],
-          mode: { type: 'regular', tools: undefined, toolChoice: undefined },
-          providerOptions: {}
+        // Try a minimal generation using high-level API
+        const { generateText } = await import('ai');
+        await generateText({
+          model: model,
+          prompt: 'Hi'
         });
         
         testResults.push({
