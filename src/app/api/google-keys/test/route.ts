@@ -2,9 +2,17 @@ import { googleKeyManager } from '@/lib/ai/google-key-manager';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { NextResponse } from 'next/server';
 
+interface TestResult {
+  attempt: number;
+  status: 'success' | 'error';
+  keyMask?: string;
+  message?: string;
+  error?: string;
+}
+
 export async function POST() {
   try {
-    const testResults = [];
+    const testResults: TestResult[] = [];
     let attempts = 0;
     const maxAttempts = 3;
     
