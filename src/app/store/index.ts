@@ -11,6 +11,7 @@ import { OPENAI_VOICE } from "lib/ai/speech/open-ai/use-voice-chat.openai";
 export interface AppState {
   threadList: ChatThread[];
   mcpList: (MCPServerInfo & { id: string })[];
+  mcpLoading?: boolean;
   projectList: Omit<Project, "instructions">[];
   currentThreadId: ChatThread["id"] | null;
   currentProjectId: Project["id"] | null;

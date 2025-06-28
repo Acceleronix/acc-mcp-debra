@@ -13,7 +13,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { PropsWithChildren, useCallback, useMemo, useState } from "react";
+import { PropsWithChildren, useCallback, useMemo, useState, useEffect } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { Badge } from "ui/badge";
@@ -84,6 +84,10 @@ export function ToolSelectDropdown({
       appStoreMutate({ mcpList: data });
     },
   });
+
+  useEffect(() => {
+    appStoreMutate({ mcpLoading: isLoading });
+  }, [isLoading, appStoreMutate]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild disabled={disabled}>

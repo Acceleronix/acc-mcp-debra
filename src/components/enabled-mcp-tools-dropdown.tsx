@@ -1,5 +1,5 @@
 import { appStore } from "@/app/store";
-import { ChevronDownIcon, WrenchIcon } from "lucide-react";
+import { ChevronDownIcon, WrenchIcon, Loader2 } from "lucide-react";
 import { PropsWithChildren, useMemo } from "react";
 import { Button } from "ui/button";
 
@@ -34,11 +34,12 @@ export function EnabledMcpToolsDropdown({
   }[];
   side?: "left" | "right" | "top" | "bottom";
 }>) {
-  const [allowedMcpServers, mcpList, noToolChoice] = appStore(
+  const [allowedMcpServers, mcpList, noToolChoice, mcpLoading] = appStore(
     useShallow((state) => [
       state.allowedMcpServers,
       state.mcpList,
       state.toolChoice == "none",
+      state.mcpLoading,
     ]),
   );
 
@@ -107,8 +108,9 @@ export function EnabledMcpToolsDropdown({
           ) : (
             <DropdownMenuItem>
               <div className="flex flex-col items-center justify-center h-full">
-                <p className="text-sm text-muted-foreground">
-                  No tools available
+                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  {mcpLoading && <Loader2 className="size-3 animate-spin" />}
+                  {mcpLoading ? "Loading MCP tools..." : "No tools available"}
                 </p>
               </div>
             </DropdownMenuItem>
