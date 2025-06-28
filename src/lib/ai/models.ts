@@ -1,7 +1,7 @@
 // models.ts
 import { createOllama } from "ollama-ai-provider";
 import { openai } from "@ai-sdk/openai";
-import { google } from "@ai-sdk/google";
+import { google, createGoogleGenerativeAI } from "@ai-sdk/google";
 import { anthropic } from "@ai-sdk/anthropic";
 import { xai } from "@ai-sdk/xai";
 import { openrouter } from "@openrouter/ai-sdk-provider";
@@ -38,8 +38,9 @@ function createGoogleProvider(modelName: string) {
           }
           
           try {
-            // Create model with fresh key
-            const modelWithKey = google(modelName, { apiKey });
+            // Create Google provider with fresh key
+            const googleProvider = createGoogleGenerativeAI({ apiKey });
+            const modelWithKey = googleProvider(modelName);
             const method = Reflect.get(modelWithKey, prop, modelWithKey);
             return await method.apply(modelWithKey, args);
           } catch (error: any) {
