@@ -5,7 +5,6 @@ import { google } from "@ai-sdk/google";
 import { anthropic } from "@ai-sdk/anthropic";
 import { xai } from "@ai-sdk/xai";
 import { openrouter } from "@openrouter/ai-sdk-provider";
-import { googleKeyManager } from "./google-key-manager";
 import { LanguageModel } from "ai";
 import {
   createOpenAICompatibleModels,
