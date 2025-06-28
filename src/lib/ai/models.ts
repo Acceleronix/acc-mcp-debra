@@ -17,49 +17,10 @@ const ollama = createOllama({
   baseURL: process.env.OLLAMA_BASE_URL || "http://localhost:11434/api",
 });
 
-// Create Google provider with dynamic key rotation
-function createGoogleProvider(modelName: string) {
-  // Create a proxy that gets a fresh key for each request
-  const baseModel = google(modelName);
-  
-  return new Proxy(baseModel, {
-    get(target, prop, receiver) {
-      const original = Reflect.get(target, prop, receiver);
-      
-      // Intercept API calls to inject fresh API key
-      if (typeof original === 'function' && 
-          (prop === 'doGenerate' || prop === 'doStream')) {
-        
-        return async function (...args: any[]) {
-          // Get fresh API key for this request
-          const apiKey = googleKeyManager.getApiKey();
-          if (!apiKey) {
-            throw new Error('No available Google API keys');
-          }
-          
-          try {
-            // Create Google provider with fresh key
-            const googleProvider = createGoogleGenerativeAI({ apiKey });
-            const modelWithKey = googleProvider(modelName);
-            const method = Reflect.get(modelWithKey, prop, modelWithKey);
-            return await method.apply(modelWithKey, args);
-          } catch (error: any) {
-            // Report error to key manager
-            googleKeyManager.reportError(apiKey, error);
-            throw error;
-          }
-        };
-      }
-      
-      return original;
-    }
-  });
-}
-
 const staticModels = {
   google: {
-    "gemini-2.5-flash": createGoogleProvider("gemini-2.5-flash-preview-04-17"),
-    "gemini-2.5-pro": createGoogleProvider("gemini-2.5-pro-preview-05-06"),
+    "gemini-2.5-flash": google("gemini-2.5-flash-preview-04-17"),
+    "gemini-2.5-pro": google("gemini-2.5-pro-preview-05-06"),
   },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
