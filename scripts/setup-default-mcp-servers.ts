@@ -39,12 +39,9 @@ async function setupDefaultMCPServers() {
       if (existing.length === 0) {
         // Insert new server
         await pgDb.insert(McpServerSchema).values({
-          id: server.name,
           name: server.name,
           config: server.config,
-          enabled: true,
-          createdAt: new Date(),
-          updatedAt: new Date()
+          enabled: true
         });
         console.log(`✅ Added MCP server: ${server.name}`);
       } else {
