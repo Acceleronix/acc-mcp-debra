@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MCP Chat",
+  title: "Acceleronix Debra",
   description:
-    "MCP Chat is a chatbot that uses the MCP Tools to answer questions.",
+    "Acceleronix Debra is an intelligent AI assistant platform powered by advanced tools and integrations.",
 };
 
 const themes = BASE_THEMES.flatMap((t) => [t, `${t}-dark`]);

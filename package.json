@@ -1,5 +1,5 @@
 {
-  "name": "mcp-client-chatbot",
+  "name": "acceleronix-debra",
   "version": "1.9.0",
   "private": true,
   "author": "cgoinglove",
@@ -35,7 +35,7 @@
     "docker-compose:ps": "docker-compose -f docker/compose.yml ps",
     "docker-compose:update": "git pull && docker-compose -f docker/compose.yml up -d --build",
     "docker:pg": "docker run --name mcp-pg -e POSTGRES_PASSWORD=your_password -e POSTGRES_USER=your_username -e POSTGRES_DB=your_database_name -p 5432:5432 -d postgres",
-    "docker:app": "docker build -f docker/Dockerfile -t mcp-client-chatbot . && docker run -p 3000:3000 -e NO_HTTPS=1 mcp-client-chatbot",
+    "docker:app": "docker build -f docker/Dockerfile -t acceleronix-debra . && docker run -p 3000:3000 -e NO_HTTPS=1 acceleronix-debra",
     "prepare": "husky"
   },
   "dependencies": {

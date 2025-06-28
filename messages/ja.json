@@ -64,7 +64,7 @@
       "createAccount": "アカウントを作成"
     },
     "Intro": {
-      "description": "MCP Chat Botへようこそ。AIを活用した会話ツールを体験するためにサインインしてください。"
+      "description": "Acceleronix Debraへようこそ。AIを活用した会話ツールを体験するためにサインインしてください。"
     }
   },
   "Chat": {
@@ -156,14 +156,14 @@
       "projectCreated": "プロジェクトが作成されました",
       "creatingChat": "チャットを作成中...",
       "chatInThisProjectCanAccessFileContents": "このプロジェクトのチャットはファイルの内容にアクセスできます。",
-      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "チャットボットがこのプロジェクトにどのように応答すべきか、またはどのような情報が必要かを書いてください。",
+      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "Acceleronix Debraがこのプロジェクトにどのように応答すべきか、またはどのような情報が必要かを書いてください。",
       "conversationList": "会話リスト",
       "enterNewPromptToStartYourFirstConversation": "新しいプロンプトを入力して最初の会話を開始してください",
       "noConversationsYet": "まだ会話がありません",
       "projectInstructions": "プロジェクトの指示",
       "projectInstructionsUpdated": "プロジェクトの指示が更新されました",
-      "howCanTheChatBotBestHelpYouWithThisProject": "チャットボットはこのプロジェクトでどのようにお手伝いできますか？",
-      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "チャットボットに特定のトピックに焦点を当てるか、特定のトーンや形式で応答するように求めることができます。"
+      "howCanTheChatBotBestHelpYouWithThisProject": "Acceleronix Debraはこのプロジェクトでどのようにお手伝いできますか？",
+      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "Acceleronix Debraに特定のトピックに焦点を当てるか、特定のトーンや形式で応答するように求めることができます。"
     },
     "ChatPreferences": {
       "title": "チャット設定",

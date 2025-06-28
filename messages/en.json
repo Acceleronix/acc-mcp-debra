@@ -45,16 +45,16 @@
     "createWorkflow": "Create Workflow",
     "draft": "Draft",
     "publish": "Publish",
-    "createWorkflowDescription": "Create workflows as powerful tools for your chatbot.",
+    "createWorkflowDescription": "Create workflows as powerful tools for Acceleronix Debra.",
     "workflowDescription": "These can be triggered during conversations to automate complex tasks.",
     "nameAndIcon": "Name And Icon",
-    "workflowNamePlaceholder": "Chatbot will recognize this as tool name",
+    "workflowNamePlaceholder": "Acceleronix Debra will recognize this as tool name",
     "description": "Description",
-    "descriptionPlaceholder": "Chatbot will see this as tool description",
+    "descriptionPlaceholder": "Acceleronix Debra will see this as tool description",
     "inputNodeCannotBeDeleted": "Input node cannot be deleted",
     "autoSaveDescription": "Auto saved every 10 seconds",
-    "draftDescription": "Currently in Draft.\n\nClick Publish to make it available to chatbot\n(but no longer editable).",
-    "publishedDescription": "Currently Published and available to chatbot.\n\nClick Draft to make it editable\n(but unavailable to chatbot).",
+    "draftDescription": "Currently in Draft.\n\nClick Publish to make it available to Acceleronix Debra\n(but no longer editable).",
+    "publishedDescription": "Currently Published and available to Acceleronix Debra.\n\nClick Draft to make it editable\n(but unavailable to Acceleronix Debra).",
     "private": "Private",
     "readonly": "Read Only",
     "public": "Public",
@@ -68,7 +68,7 @@
     "addNextNode": "Add Next Node",
     "inputFields": "Input Fields",
     "addInputField": "Add Input Field",
-    "inputFieldsDescription": "Define the parameter schema for this workflow.\n\nWhen the chatbot uses this as a tool,\nit will provide values according to this schema.",
+    "inputFieldsDescription": "Define the parameter schema for this workflow.\n\nWhen Acceleronix Debra uses this as a tool,\nit will provide values according to this schema.",
     "fieldEditor": "Field Editor",
     "variableName": "Variable Name",
     "variableNamePlaceholder": "Enter variable name...",
@@ -120,7 +120,7 @@
       "createAccount": "Create account"
     },
     "Intro": {
-      "description": "Welcome to MCP Chat Bot. Sign in to experience our AI-powered conversational tools."
+      "description": "Welcome to Acceleronix Debra. Sign in to experience our AI-powered conversational tools."
     }
   },
   "Chat": {
@@ -196,7 +196,7 @@
       "project": "Project",
       "renameProject": "Rename Project",
       "deleteProject": "Delete Project",
-      "placeholder": "e.g. You are a Korean travel guide ChatBot. Respond only in Korean, include precise times for every itinerary item, and present transportation, budget, and dining recommendations succinctly in a table format.",
+      "placeholder": "e.g. You are a Korean travel guide assistant. Respond only in Korean, include precise times for every itinerary item, and present transportation, budget, and dining recommendations succinctly in a table format.",
       "generateWithAI": "Generate With AI",
       "instructions": "Instructions",
       "projectName": "Name",
@@ -212,14 +212,14 @@
       "projectCreated": "Project created",
       "creatingChat": "Creating Chat...",
       "chatInThisProjectCanAccessFileContents": "Chat in this project can access file contents.",
-      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "Write how the chatbot should respond to this project or what information it needs.",
+      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "Write how Acceleronix Debra should respond to this project or what information it needs.",
       "conversationList": "Conversation List",
       "enterNewPromptToStartYourFirstConversation": "Enter a new prompt to start your first conversation",
       "noConversationsYet": "No conversations yet",
       "projectInstructions": "Project Instructions",
       "projectInstructionsUpdated": "Project instructions updated",
-      "howCanTheChatBotBestHelpYouWithThisProject": "How can the ChatBot best help you with this project?",
-      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "You can ask the ChatBot to focus on a specific topic or to respond in a particular tone or format."
+      "howCanTheChatBotBestHelpYouWithThisProject": "How can Acceleronix Debra best help you with this project?",
+      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "You can ask Acceleronix Debra to focus on a specific topic or to respond in a particular tone or format."
     },
     "ChatPreferences": {
       "title": "Chat Preferences",

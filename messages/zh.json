@@ -156,14 +156,14 @@
       "projectCreated": "项目已创建",
       "creatingChat": "正在创建聊天...",
       "chatInThisProjectCanAccessFileContents": "此项目中的聊天可以访问文件内容。",
-      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "写下聊天机器人应该如何响应此项目或需要什么信息。",
+      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "写下Acceleronix Debra应该如何响应此项目或需要什么信息。",
       "conversationList": "对话列表",
       "enterNewPromptToStartYourFirstConversation": "输入新提示开始您的第一次对话",
       "noConversationsYet": "暂无对话",
       "projectInstructions": "项目说明",
       "projectInstructionsUpdated": "项目说明已更新",
-      "howCanTheChatBotBestHelpYouWithThisProject": "聊天机器人如何最好地帮助您完成此项目？",
-      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "您可以要求聊天机器人专注于特定主题或以特定语调或格式回应。"
+      "howCanTheChatBotBestHelpYouWithThisProject": "Acceleronix Debra如何最好地帮助您完成此项目？",
+      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "您可以要求Acceleronix Debra专注于特定主题或以特定语调或格式回应。"
     },
     "ChatPreferences": {
       "title": "聊天偏好",

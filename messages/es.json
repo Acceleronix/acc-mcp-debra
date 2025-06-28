@@ -64,7 +64,7 @@
       "createAccount": "Crear cuenta"
     },
     "Intro": {
-      "description": "Bienvenido a MCP Chat Bot. Inicia sesión para experimentar nuestras herramientas conversacionales impulsadas por IA."
+      "description": "Bienvenido a Acceleronix Debra. Inicia sesión para experimentar nuestras herramientas conversacionales impulsadas por IA."
     }
   },
   "Chat": {
@@ -140,7 +140,7 @@
       "project": "Proyecto",
       "renameProject": "Renombrar Proyecto",
       "deleteProject": "Eliminar Proyecto",
-      "placeholder": "ej. Eres un ChatBot guía de viajes de España. Responde solo en español, incluye horarios precisos para cada elemento del itinerario, y presenta recomendaciones de transporte, presupuesto y comida de forma concisa en formato de tabla.",
+      "placeholder": "ej. Eres un asistente guía de viajes de España. Responde solo en español, incluye horarios precisos para cada elemento del itinerario, y presenta recomendaciones de transporte, presupuesto y comida de forma concisa en formato de tabla.",
       "generateWithAI": "Generar con IA",
       "instructions": "Instrucciones",
       "projectName": "Nombre",
@@ -156,14 +156,14 @@
       "projectCreated": "Proyecto creado",
       "creatingChat": "Creando Chat...",
       "chatInThisProjectCanAccessFileContents": "El chat en este proyecto puede acceder al contenido de los archivos.",
-      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "Escribe cómo debería responder el chatbot a este proyecto o qué información necesita.",
+      "writeHowTheChatbotShouldRespondToThisProjectOrWhatInformationItNeeds": "Escribe cómo debería responder Acceleronix Debra a este proyecto o qué información necesita.",
       "conversationList": "Lista de Conversaciones",
       "enterNewPromptToStartYourFirstConversation": "Ingresa un nuevo prompt para comenzar tu primera conversación",
       "noConversationsYet": "Aún no hay conversaciones",
       "projectInstructions": "Instrucciones del Proyecto",
       "projectInstructionsUpdated": "Instrucciones del proyecto actualizadas",
-      "howCanTheChatBotBestHelpYouWithThisProject": "¿Cómo puede el ChatBot ayudarte mejor con este proyecto?",
-      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "Puedes pedirle al ChatBot que se enfoque en un tema específico o que responda en un tono o formato particular."
+      "howCanTheChatBotBestHelpYouWithThisProject": "¿Cómo puede Acceleronix Debra ayudarte mejor con este proyecto?",
+      "youCanAskTheChatBotToFocusOnASpecificTopicOrToRespondInAParticularToneOrFormat": "Puedes pedirle a Acceleronix Debra que se enfoque en un tema específico o que responda en un tono o formato particular."
     },
     "ChatPreferences": {
       "title": "Preferencias de Chat",
@@ -273,16 +273,16 @@
     "createWorkflow": "Crear Flujo de Trabajo",
     "draft": "Borrador",
     "publish": "Publicar",
-    "createWorkflowDescription": "Crea flujos de trabajo como herramientas poderosas para tu chatbot.",
+    "createWorkflowDescription": "Crea flujos de trabajo como herramientas poderosas para Acceleronix Debra.",
     "workflowDescription": "Estos pueden activarse durante conversaciones para automatizar tareas complejas.",
     "nameAndIcon": "Nombre e Icono",
-    "workflowNamePlaceholder": "El chatbot reconocerá esto como nombre de herramienta",
+    "workflowNamePlaceholder": "Acceleronix Debra reconocerá esto como nombre de herramienta",
     "description": "Descripción",
-    "descriptionPlaceholder": "El chatbot verá esto como descripción de herramienta",
+    "descriptionPlaceholder": "Acceleronix Debra verá esto como descripción de herramienta",
     "inputNodeCannotBeDeleted": "El nodo de entrada no puede ser eliminado",
     "autoSaveDescription": "Guardado automático cada 10 segundos",
-    "draftDescription": "Actualmente en Borrador.\n\nHaz clic en Publicar para hacerlo disponible al chatbot\n(pero ya no será editable).",
-    "publishedDescription": "Actualmente Publicado y disponible para el chatbot.\n\nHaz clic en Borrador para hacerlo editable\n(pero no disponible para el chatbot).",
+    "draftDescription": "Actualmente en Borrador.\n\nHaz clic en Publicar para hacerlo disponible a Acceleronix Debra\n(pero ya no será editable).",
+    "publishedDescription": "Actualmente Publicado y disponible para Acceleronix Debra.\n\nHaz clic en Borrador para hacerlo editable\n(pero no disponible para Acceleronix Debra).",
     "private": "Privado",
     "readonly": "Solo Lectura",
     "public": "Público",
@@ -296,7 +296,7 @@
     "addNextNode": "Agregar Siguiente Nodo",
     "inputFields": "Campos de Entrada",
     "addInputField": "Agregar Campo de Entrada",
-    "inputFieldsDescription": "Define el esquema de parámetros para este flujo de trabajo.\n\nCuando el chatbot use esto como herramienta,\nproporcionará valores según este esquema.",
+    "inputFieldsDescription": "Define el esquema de parámetros para este flujo de trabajo.\n\nCuando Acceleronix Debra use esto como herramienta,\nproporcionará valores según este esquema.",
     "fieldEditor": "Editor de Campo",
     "variableName": "Nombre de Variable",
     "variableNamePlaceholder": "Ingresa nombre de variable...",
