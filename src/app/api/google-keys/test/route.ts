@@ -35,7 +35,7 @@ export async function POST() {
         const model = googleProvider('gemini-2.5-flash-preview-04-17');
         
         // Try a minimal generation
-        const result = await model.doGenerate({
+        await model.doGenerate({
           inputFormat: 'prompt',
           prompt: [{ role: 'user', content: [{ type: 'text', text: 'Hi' }] }],
           mode: { type: 'regular', tools: undefined, toolChoice: undefined },
