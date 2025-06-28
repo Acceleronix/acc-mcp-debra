@@ -23,6 +23,8 @@ interface GoogleKeysStatus {
 export default function GoogleKeysPage() {
   const [status, setStatus] = useState<GoogleKeysStatus | null>(null);
   const [loading, setLoading] = useState(true);
+  const [testing, setTesting] = useState(false);
+  const [testResults, setTestResults] = useState<any>(null);
 
   const fetchStatus = async () => {
     try {
@@ -34,6 +36,21 @@ export default function GoogleKeysPage() {
       console.error('Failed to fetch status:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const testKeys = async () => {
+    try {
+      setTesting(true);
+      const response = await fetch('/api/google-keys/test', { method: 'POST' });
+      const data = await response.json();
+      setTestResults(data);
+      // Refresh status after test
+      fetchStatus();
+    } catch (error) {
+      console.error('Failed to test keys:', error);
+    } finally {
+      setTesting(false);
     }
   };
 
@@ -63,9 +80,14 @@ export default function GoogleKeysPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Google API Keys Status</h1>
-        <Button onClick={fetchStatus} size="sm">
-          Refresh
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={fetchStatus} size="sm" variant="outline">
+            Refresh
+          </Button>
+          <Button onClick={testKeys} size="sm" disabled={testing}>
+            {testing ? "Testing..." : "Test Keys"}
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -139,6 +161,60 @@ export default function GoogleKeysPage() {
           </div>
         </CardContent>
       </Card>
+
+      {testResults && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Test Results</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">{testResults.summary?.totalAttempts || 0}</div>
+                  <div className="text-sm text-muted-foreground">Attempts</div>
+                </div>
+                <div className="text-center">
+                  <div className={`text-2xl font-bold ${testResults.summary?.success ? 'text-green-600' : 'text-red-600'}`}>
+                    {testResults.summary?.success ? 'Success' : 'Failed'}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Result</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">{testResults.summary?.activeKeys || 0}</div>
+                  <div className="text-sm text-muted-foreground">Active Keys</div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-medium">Test Details:</h4>
+                {testResults.testResults?.map((result: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`p-3 rounded border ${
+                      result.status === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <Badge variant={result.status === 'success' ? 'default' : 'destructive'}>
+                          Attempt {result.attempt}
+                        </Badge>
+                        {result.keyMask && (
+                          <span className="font-mono text-sm">{result.keyMask}</span>
+                        )}
+                      </div>
+                      <div className="text-sm">
+                        {result.message || result.error}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

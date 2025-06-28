@@ -1,10 +1,11 @@
 // models.ts
 import { createOllama } from "ollama-ai-provider";
 import { openai } from "@ai-sdk/openai";
-import { google } from "@ai-sdk/google";
+import { google, createGoogleGenerativeAI } from "@ai-sdk/google";
 import { anthropic } from "@ai-sdk/anthropic";
 import { xai } from "@ai-sdk/xai";
 import { openrouter } from "@openrouter/ai-sdk-provider";
+import { googleKeyManager } from "./google-key-manager";
 import { LanguageModel } from "ai";
 import {
   createOpenAICompatibleModels,
@@ -16,10 +17,89 @@ const ollama = createOllama({
   baseURL: process.env.OLLAMA_BASE_URL || "http://localhost:11434/api",
 });
 
+// Create Google models with automatic key rotation
+function createGoogleModelWithRotation(modelName: string) {
+  return {
+    // Mimic the LanguageModel interface
+    doGenerate: async (options: any) => {
+      let lastError: any;
+      let attempts = 0;
+      const maxAttempts = 5; // Try up to 5 different keys
+      
+      while (attempts < maxAttempts) {
+        const apiKey = googleKeyManager.getApiKey();
+        if (!apiKey) {
+          throw new Error('No available Google API keys');
+        }
+        
+        try {
+          const googleProvider = createGoogleGenerativeAI({ apiKey });
+          const model = googleProvider(modelName);
+          return await model.doGenerate(options);
+        } catch (error: any) {
+          lastError = error;
+          attempts++;
+          
+          // Report error to key manager
+          googleKeyManager.reportError(apiKey, error);
+          
+          console.warn(`Google API error with key ${apiKey.substring(0, 8)}... (attempt ${attempts}):`, error?.message || error);
+          
+          // If this was a permanent error or we've exhausted attempts, throw
+          if (attempts >= maxAttempts) {
+            break;
+          }
+        }
+      }
+      
+      // If we get here, all attempts failed
+      console.error(`All Google API keys failed after ${attempts} attempts`);
+      throw lastError || new Error('All Google API keys are unavailable');
+    },
+    
+    doStream: async (options: any) => {
+      let lastError: any;
+      let attempts = 0;
+      const maxAttempts = 5;
+      
+      while (attempts < maxAttempts) {
+        const apiKey = googleKeyManager.getApiKey();
+        if (!apiKey) {
+          throw new Error('No available Google API keys');
+        }
+        
+        try {
+          const googleProvider = createGoogleGenerativeAI({ apiKey });
+          const model = googleProvider(modelName);
+          return await model.doStream(options);
+        } catch (error: any) {
+          lastError = error;
+          attempts++;
+          
+          // Report error to key manager
+          googleKeyManager.reportError(apiKey, error);
+          
+          console.warn(`Google API stream error with key ${apiKey.substring(0, 8)}... (attempt ${attempts}):`, error?.message || error);
+          
+          if (attempts >= maxAttempts) {
+            break;
+          }
+        }
+      }
+      
+      console.error(`All Google API keys failed for streaming after ${attempts} attempts`);
+      throw lastError || new Error('All Google API keys are unavailable for streaming');
+    },
+    
+    // Pass through other properties from a base model
+    ...google(modelName)
+  };
+}
+
 const staticModels = {
   google: {
-    "gemini-2.5-flash": google("gemini-2.5-flash-preview-04-17"),
-    "gemini-2.5-pro": google("gemini-2.5-pro-preview-05-06"),
+    "gemini-2.5-flash": createGoogleModelWithRotation("gemini-2.5-flash-preview-04-17") as any,
+    "gemini-2.5-pro": createGoogleModelWithRotation("gemini-2.5-pro-preview-05-06") as any,
   },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
