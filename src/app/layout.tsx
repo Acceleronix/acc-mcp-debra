@@ -6,6 +6,7 @@ import { Toaster } from "ui/sonner";
 import { BASE_THEMES } from "lib/const";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default async function RootLayout({
               <Toaster richColors />
             </div>
           </NextIntlClientProvider>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
