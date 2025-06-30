@@ -18,8 +18,6 @@ import { Loader } from "lucide-react";
 import { safe } from "ts-safe";
 import { authClient } from "auth/client";
 import { toast } from "sonner";
-import { GithubIcon } from "ui/github-icon";
-import { GoogleIcon } from "ui/google-icon";
 import { useTranslations } from "next-intl";
 
 export default function SignInPage() {
@@ -50,30 +48,6 @@ export default function SignInPage() {
     )
       .watch(() => setLoading(false))
       .unwrap();
-  };
-
-  const googleSignIn = () => {
-    if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
-      return toast.warning(t("oauthClientIdNotSet", { provider: "Google" }));
-    authClient.signIn
-      .social({
-        provider: "google",
-      })
-      .catch((e) => {
-        toast.error(e.error);
-      });
-  };
-
-  const githubSignIn = () => {
-    if (!process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID)
-      return toast.warning(t("oauthClientIdNotSet", { provider: "GitHub" }));
-    authClient.signIn
-      .social({
-        provider: "github",
-      })
-      .catch((e) => {
-        toast.error(e.error);
-      });
   };
 
   return (
@@ -131,27 +105,6 @@ export default function SignInPage() {
               ) : (
                 t("signIn")
               )}
-            </Button>
-          </div>
-          <div className="flex items-center my-4">
-            <div className="flex-1 h-px bg-accent"></div>
-            <span className="px-4 text-sm text-muted-foreground">
-              {t("orContinueWith")}
-            </span>
-            <div className="flex-1 h-px bg-accent"></div>
-          </div>
-          <div className="flex gap-2 w-full">
-            <Button
-              variant="outline"
-              onClick={googleSignIn}
-              className="flex-1 "
-            >
-              <GoogleIcon className="size-4 fill-foreground" />
-              Google
-            </Button>
-            <Button variant="outline" onClick={githubSignIn} className="flex-1">
-              <GithubIcon className="size-4 fill-foreground" />
-              GitHub
             </Button>
           </div>
 
