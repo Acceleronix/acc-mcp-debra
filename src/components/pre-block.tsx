@@ -158,10 +158,12 @@ const PreviewablePre = ({
     if (lang === "html") {
       const sanitizedHtml = sanitizeHtml(code);
       return (
-        <div
-          className="prose prose-sm max-w-none dark:prose-invert p-4"
-          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-        />
+        <div className="p-4">
+          <div
+            className="prose prose-sm max-w-none dark:prose-invert [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-border [&_table]:rounded-lg [&_thead]:bg-muted/50 [&_th]:border [&_th]:border-border [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_td]:border [&_td]:border-border [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-border hover:[&_tr]:bg-muted/30 [&_tr]:transition-colors"
+            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+          />
+        </div>
       );
     } else if (lang === "markdown" || lang === "md") {
       return (
@@ -169,6 +171,32 @@ const PreviewablePre = ({
           <Markdown>{code}</Markdown>
         </div>
       );
+    } else if (lang === "jsx" || lang === "tsx") {
+      // 检查是否包含图表代码
+      if (
+        code.includes("BarChart") ||
+        code.includes("LineChart") ||
+        code.includes("PieChart") ||
+        code.includes("ChartContainer")
+      ) {
+        return (
+          <div className="p-4">
+            <div className="border rounded-lg p-4 bg-muted/20">
+              <div className="text-sm text-muted-foreground mb-2">
+                📊 检测到图表代码
+              </div>
+              <div className="text-sm">
+                这是一个 React 图表组件代码。要查看图表效果，请将代码复制到
+                React 环境中运行。
+              </div>
+              <div className="mt-2 text-xs text-muted-foreground">
+                支持的图表类型：柱状图 (BarChart)、折线图 (LineChart)、饼图
+                (PieChart)
+              </div>
+            </div>
+          </div>
+        );
+      }
     }
     return null;
   };
@@ -248,8 +276,14 @@ export async function highlight(
     );
   }
 
-  // For HTML and Markdown, use PreviewablePre with tabs
-  if (lang === "html" || lang === "markdown" || lang === "md") {
+  // For HTML, Markdown, and React components, use PreviewablePre with tabs
+  if (
+    lang === "html" ||
+    lang === "markdown" ||
+    lang === "md" ||
+    lang === "jsx" ||
+    lang === "tsx"
+  ) {
     const out = await codeToHast(code, {
       lang: parsed,
       theme,

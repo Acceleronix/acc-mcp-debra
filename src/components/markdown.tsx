@@ -141,6 +141,55 @@ const components: Partial<Components> = {
     // eslint-disable-next-line @next/next/no-img-element
     return <img className="mx-auto rounded-lg" src={src} alt={alt} {...rest} />;
   },
+  table: ({ node, children, ...props }) => {
+    return (
+      <div className="my-6 overflow-x-auto">
+        <table
+          className="w-full border-collapse border border-border rounded-lg"
+          {...props}
+        >
+          {children}
+        </table>
+      </div>
+    );
+  },
+  thead: ({ node, children, ...props }) => {
+    return (
+      <thead className="bg-muted/50" {...props}>
+        {children}
+      </thead>
+    );
+  },
+  tbody: ({ node, children, ...props }) => {
+    return <tbody {...props}>{children}</tbody>;
+  },
+  tr: ({ node, children, ...props }) => {
+    return (
+      <tr
+        className="border-b border-border hover:bg-muted/30 transition-colors"
+        {...props}
+      >
+        {children}
+      </tr>
+    );
+  },
+  th: ({ node, children, ...props }) => {
+    return (
+      <th
+        className="border border-border px-4 py-3 text-left font-semibold text-sm"
+        {...props}
+      >
+        <WordByWordFadeIn>{children}</WordByWordFadeIn>
+      </th>
+    );
+  },
+  td: ({ node, children, ...props }) => {
+    return (
+      <td className="border border-border px-4 py-3 text-sm" {...props}>
+        <WordByWordFadeIn>{children}</WordByWordFadeIn>
+      </td>
+    );
+  },
 };
 
 const NonMemoizedMarkdown = ({ children }: { children: string }) => {
