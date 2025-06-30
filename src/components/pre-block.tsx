@@ -19,6 +19,7 @@ import { useCopy } from "@/hooks/use-copy";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { Markdown } from "./markdown";
 import DOMPurify from "dompurify";
+import { PlotlyChart } from "./plotly-chart";
 import dynamic from "next/dynamic";
 
 // Dynamically import MermaidDiagram component
@@ -154,36 +155,62 @@ const PreviewablePre = ({
     });
   };
 
-  const renderPreview = () => {
-    if (lang === "html") {
-      const sanitizedHtml = sanitizeHtml(code);
+  const isChartCode = (code: string, lang: string): boolean => {
+    // Python Plotly 代码检测
+    if (lang === "python" || lang === "py") {
       return (
-        <div className="p-4">
-          <div
-            className="prose prose-sm max-w-none dark:prose-invert [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-border [&_table]:rounded-lg [&_thead]:bg-muted/50 [&_th]:border [&_th]:border-border [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_td]:border [&_td]:border-border [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-border hover:[&_tr]:bg-muted/30 [&_tr]:transition-colors"
-            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-          />
-        </div>
+        code.includes("plotly") ||
+        code.includes("go.Scatter") ||
+        code.includes("go.Bar") ||
+        code.includes("go.Pie") ||
+        code.includes("px.line") ||
+        code.includes("px.bar") ||
+        code.includes("px.scatter") ||
+        code.includes("fig.show()") ||
+        code.includes("图表") || code.includes("温度") ||
+        code.includes("数据可视化")
       );
-    } else if (lang === "markdown" || lang === "md") {
+    }
+
+    // JSON 图表配置检测
+    if (lang === "json") {
+      try {
+        const parsed = JSON.parse(code);
+        return !!(parsed.data || parsed.traces || parsed.layout);
+      } catch {
+        return false;
+      }
+    }
+
+    // CSV 数据检测
+    if (lang === "csv") {
+      const lines = code.trim().split("\n");
+      return lines.length > 1 && lines[0].includes(",");
+    }
+
+    // React 图表组件检测
+    if (lang === "jsx" || lang === "tsx") {
       return (
-        <div className="p-4">
-          <Markdown>{code}</Markdown>
-        </div>
-      );
-    } else if (lang === "jsx" || lang === "tsx") {
-      // 检查是否包含图表代码
-      if (
         code.includes("BarChart") ||
         code.includes("LineChart") ||
         code.includes("PieChart") ||
         code.includes("ChartContainer")
-      ) {
+      );
+    }
+
+    return false;
+  };
+
+  const renderPreview = () => {
+    // 图表代码渲染
+    if (isChartCode(code, lang)) {
+      if (lang === "jsx" || lang === "tsx") {
+        // React 图表组件提示
         return (
           <div className="p-4">
             <div className="border rounded-lg p-4 bg-muted/20">
               <div className="text-sm text-muted-foreground mb-2">
-                📊 检测到图表代码
+                📊 检测到 React 图表代码
               </div>
               <div className="text-sm">
                 这是一个 React 图表组件代码。要查看图表效果，请将代码复制到
@@ -196,8 +223,34 @@ const PreviewablePre = ({
             </div>
           </div>
         );
+      } else {
+        // 使用 Plotly 渲染图表
+        return <PlotlyChart code={code} lang={lang} />;
       }
     }
+
+    // HTML 渲染
+    if (lang === "html") {
+      const sanitizedHtml = sanitizeHtml(code);
+      return (
+        <div className="p-4">
+          <div
+            className="prose prose-sm max-w-none dark:prose-invert [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-border [&_table]:rounded-lg [&_thead]:bg-muted/50 [&_th]:border [&_th]:border-border [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_td]:border [&_td]:border-border [&_td]:px-4 [&_td]:py-3 [&_tr]:border-b [&_tr]:border-border hover:[&_tr]:bg-muted/30 [&_tr]:transition-colors"
+            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+          />
+        </div>
+      );
+    }
+
+    // Markdown 渲染
+    if (lang === "markdown" || lang === "md") {
+      return (
+        <div className="p-4">
+          <Markdown>{code}</Markdown>
+        </div>
+      );
+    }
+
     return null;
   };
 
@@ -276,14 +329,46 @@ export async function highlight(
     );
   }
 
-  // For HTML, Markdown, and React components, use PreviewablePre with tabs
-  if (
-    lang === "html" ||
-    lang === "markdown" ||
-    lang === "md" ||
-    lang === "jsx" ||
-    lang === "tsx"
-  ) {
+  // Check if this should use PreviewablePre with tabs
+  const shouldUsePreview = (code: string, lang: string): boolean => {
+    // Always use preview for HTML and Markdown
+    if (lang === "html" || lang === "markdown" || lang === "md") {
+      return true;
+    }
+
+    // Use preview for chart-related code
+    return (
+      // Python with Plotly
+      ((lang === "python" || lang === "py") &&
+        (code.includes("plotly") ||
+          code.includes("go.Scatter") ||
+          code.includes("go.Bar") ||
+          code.includes("px.line") ||
+          code.includes("温度") ||
+          code.includes("图表"))) ||
+      // JSON chart config
+      (lang === "json" &&
+        (() => {
+          try {
+            const parsed = JSON.parse(code);
+            return !!(parsed.data || parsed.traces || parsed.layout);
+          } catch {
+            return false;
+          }
+        })()) ||
+      // CSV data
+      (lang === "csv" && code.includes(",") && code.split("\n").length > 1) ||
+      // React chart components
+      ((lang === "jsx" || lang === "tsx") &&
+        (code.includes("BarChart") ||
+          code.includes("LineChart") ||
+          code.includes("PieChart") ||
+          code.includes("ChartContainer")))
+    );
+  };
+
+  // For preview-enabled code blocks, use PreviewablePre with tabs
+  if (shouldUsePreview(code, lang)) {
     const out = await codeToHast(code, {
       lang: parsed,
       theme,
