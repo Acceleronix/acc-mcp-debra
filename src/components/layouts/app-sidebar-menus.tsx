@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { MCPIcon } from "ui/mcp-icon";
 import { WriteIcon } from "ui/write-icon";
-import { Waypoints } from "lucide-react";
+import { Waypoints, Eye } from "lucide-react";
 import { Badge } from "ui/badge";
 
 export function AppSidebarMenus() {
@@ -71,6 +71,19 @@ export function AppSidebarMenus() {
                   <Waypoints className="size-4" />
                   {t("workflow")}
                   <Badge>Beta</Badge>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          </Tooltip>
+        </SidebarMenu>
+        <SidebarMenu>
+          <Tooltip>
+            <SidebarMenuItem>
+              <Link href="/preview-test">
+                <SidebarMenuButton className="font-semibold">
+                  <Eye className="size-4" />
+                  内容预览测试
+                  <Badge>New</Badge>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
