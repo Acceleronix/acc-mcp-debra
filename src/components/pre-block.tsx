@@ -19,7 +19,7 @@ import { useCopy } from "@/hooks/use-copy";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { Markdown } from "./markdown";
 import DOMPurify from "dompurify";
-import { PlotlyChart } from "./plotly-chart";
+import { ReactChartRenderer } from "./react-chart-renderer";
 import dynamic from "next/dynamic";
 
 // Dynamically import MermaidDiagram component
@@ -155,78 +155,10 @@ const PreviewablePre = ({
     });
   };
 
-  const isChartCode = (code: string, lang: string): boolean => {
-    // Python Plotly 代码检测
-    if (lang === "python" || lang === "py") {
-      return (
-        code.includes("plotly") ||
-        code.includes("go.Scatter") ||
-        code.includes("go.Bar") ||
-        code.includes("go.Pie") ||
-        code.includes("px.line") ||
-        code.includes("px.bar") ||
-        code.includes("px.scatter") ||
-        code.includes("fig.show()") ||
-        code.includes("图表") || code.includes("温度") ||
-        code.includes("数据可视化")
-      );
-    }
-
-    // JSON 图表配置检测
-    if (lang === "json") {
-      try {
-        const parsed = JSON.parse(code);
-        return !!(parsed.data || parsed.traces || parsed.layout);
-      } catch {
-        return false;
-      }
-    }
-
-    // CSV 数据检测
-    if (lang === "csv") {
-      const lines = code.trim().split("\n");
-      return lines.length > 1 && lines[0].includes(",");
-    }
-
-    // React 图表组件检测
-    if (lang === "jsx" || lang === "tsx") {
-      return (
-        code.includes("BarChart") ||
-        code.includes("LineChart") ||
-        code.includes("PieChart") ||
-        code.includes("ChartContainer")
-      );
-    }
-
-    return false;
-  };
-
   const renderPreview = () => {
-    // 图表代码渲染
-    if (isChartCode(code, lang)) {
-      if (lang === "jsx" || lang === "tsx") {
-        // React 图表组件提示
-        return (
-          <div className="p-4">
-            <div className="border rounded-lg p-4 bg-muted/20">
-              <div className="text-sm text-muted-foreground mb-2">
-                📊 检测到 React 图表代码
-              </div>
-              <div className="text-sm">
-                这是一个 React 图表组件代码。要查看图表效果，请将代码复制到
-                React 环境中运行。
-              </div>
-              <div className="mt-2 text-xs text-muted-foreground">
-                支持的图表类型：柱状图 (BarChart)、折线图 (LineChart)、饼图
-                (PieChart)
-              </div>
-            </div>
-          </div>
-        );
-      } else {
-        // 使用 Plotly 渲染图表
-        return <PlotlyChart code={code} lang={lang} />;
-      }
+    // React 图表代码渲染
+    if (isReactChartCode(code, lang)) {
+      return <ReactChartRenderer code={code} lang={lang} />;
     }
 
     // HTML 渲染
@@ -304,6 +236,24 @@ const PreviewablePre = ({
   );
 };
 
+// Helper function to check if code is React chart code
+function isReactChartCode(code: string, lang: string): boolean {
+  // React 图表组件检测
+  if (lang === "jsx" || lang === "tsx") {
+    return (
+      code.includes("recharts") ||
+      code.includes("LineChart") ||
+      code.includes("BarChart") ||
+      code.includes("PieChart") ||
+      code.includes("AreaChart") ||
+      code.includes("ComposedChart") ||
+      code.includes("ResponsiveContainer")
+    );
+  }
+
+  return false;
+}
+
 export async function highlight(
   code: string,
   lang: BundledLanguage | (string & {}),
@@ -336,35 +286,8 @@ export async function highlight(
       return true;
     }
 
-    // Use preview for chart-related code
-    return (
-      // Python with Plotly
-      ((lang === "python" || lang === "py") &&
-        (code.includes("plotly") ||
-          code.includes("go.Scatter") ||
-          code.includes("go.Bar") ||
-          code.includes("px.line") ||
-          code.includes("温度") ||
-          code.includes("图表"))) ||
-      // JSON chart config
-      (lang === "json" &&
-        (() => {
-          try {
-            const parsed = JSON.parse(code);
-            return !!(parsed.data || parsed.traces || parsed.layout);
-          } catch {
-            return false;
-          }
-        })()) ||
-      // CSV data
-      (lang === "csv" && code.includes(",") && code.split("\n").length > 1) ||
-      // React chart components
-      ((lang === "jsx" || lang === "tsx") &&
-        (code.includes("BarChart") ||
-          code.includes("LineChart") ||
-          code.includes("PieChart") ||
-          code.includes("ChartContainer")))
-    );
+    // Use preview for React chart components
+    return isReactChartCode(code, lang);
   };
 
   // For preview-enabled code blocks, use PreviewablePre with tabs

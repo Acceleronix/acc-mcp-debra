@@ -26,6 +26,9 @@ importers:
       '@ai-sdk/xai':
         specifier: ^1.2.16
         version: 1.2.16(zod@3.25.67)
+      '@babel/standalone':
+        specifier: ^7.27.7
+        version: 7.27.7
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.3
         version: 1.13.2
@@ -185,9 +188,6 @@ importers:
       pg:
         specifier: ^8.16.0
         version: 8.16.3
-      plotly.js-dist-min:
-        specifier: ^3.0.1
-        version: 3.0.1
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -388,6 +388,10 @@ packages:
 
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/standalone@7.27.7':
+    resolution: {integrity: sha512-vYgHkle44HY5d0qshIR2rKZBfFGHj0OaH7oBAe1NUEkI2DhZdU2+KrEt2qMkdiUjbClQFS8FQQrvdKB8kLn7aw==}
     engines: {node: '>=6.9.0'}
 
   '@better-auth/utils@0.2.5':
@@ -4660,9 +4664,6 @@ packages:
   pkg-types@2.1.1:
     resolution: {integrity: sha512-eY0QFb6eSwc9+0d/5D2lFFUq+A3n3QNGSy/X2Nvp+6MfzGw2u6EbA7S80actgjY1lkvvI0pqB+a4hioMh443Ew==}
 
-  plotly.js-dist-min@3.0.1:
-    resolution: {integrity: sha512-RReOqr6TfoHaTbVAoHR1UbTCOSRDsQ7Hbthd+3XAxOwaKmxCE3oejMhLG7urQSqWC65DAcSKV23kZd8e+7mG7w==}
-
   points-on-curve@0.2.0:
     resolution: {integrity: sha512-0mYKnYYe9ZcqMCWhUjItv/oHjvgEsfKvnUTg8sAtnHr3GVy7rGkXCb6d5cSyqrWqL4k81b9CPg3urd+T7aop3A==}
 
@@ -5768,6 +5769,8 @@ snapshots:
   '@antfu/utils@8.1.1': {}
 
   '@babel/runtime@7.27.6': {}
+
+  '@babel/standalone@7.27.7': {}
 
   '@better-auth/utils@0.2.5':
     dependencies:
@@ -10245,8 +10248,6 @@ snapshots:
       confbox: 0.2.2
       exsolve: 1.0.7
       pathe: 2.0.3
-
-  plotly.js-dist-min@3.0.1: {}
 
   points-on-curve@0.2.0: {}
 
