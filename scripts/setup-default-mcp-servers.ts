@@ -3,8 +3,6 @@ import { McpServerSchema } from "lib/db/pg/schema.pg";
 import { eq } from "drizzle-orm";
 import type { MCPServerConfig } from "app-types/mcp";
 
-import { IS_MCP_SERVER_REMOTE_ONLY } from "lib/const";
-
 const DEFAULT_MCP_SERVERS = [
   {
     name: "cmp-mcp-server",
@@ -24,18 +22,6 @@ const DEFAULT_MCP_SERVERS = [
       url: "https://swagger-mcp-server.zlinoliver.workers.dev/sse",
     } as MCPServerConfig,
   },
-  // Add DuckDuckGo search server only for local development
-  ...(IS_MCP_SERVER_REMOTE_ONLY
-    ? []
-    : [
-        {
-          name: "duckduckgo-search",
-          config: {
-            command: "uvx",
-            args: ["duckduckgo-mcp-server"],
-          } as MCPServerConfig,
-        },
-      ]),
 ];
 
 async function setupDefaultMCPServers() {

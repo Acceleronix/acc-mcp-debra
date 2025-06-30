@@ -9,7 +9,6 @@ import {
   Loader,
   Package,
   Plus,
-  Search,
   Wrench,
   X,
 } from "lucide-react";
@@ -555,22 +554,6 @@ function AppDefaultToolKitSelector() {
           className="ml-auto"
           checked={allowedAppDefaultToolkit?.includes(
             AppDefaultToolkit.Visualization,
-          )}
-        />
-      </DropdownMenuItem>
-      <DropdownMenuItem
-        className="cursor-pointer font-semibold text-xs"
-        onClick={(e) => {
-          e.preventDefault();
-          toggleAppDefaultToolkit(AppDefaultToolkit.WebSearch);
-        }}
-      >
-        <Search className="size-3.5 text-green-500 stroke-3" />
-        {t("webSearchTools")}
-        <Switch
-          className="ml-auto"
-          checked={allowedAppDefaultToolkit?.includes(
-            AppDefaultToolkit.WebSearch,
           )}
         />
       </DropdownMenuItem>
