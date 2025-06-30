@@ -19,7 +19,6 @@ import { useCopy } from "@/hooks/use-copy";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { Markdown } from "./markdown";
 import DOMPurify from "dompurify";
-import { ReactChartRenderer } from "./react-chart-renderer";
 import dynamic from "next/dynamic";
 
 // Dynamically import MermaidDiagram component
@@ -156,11 +155,6 @@ const PreviewablePre = ({
   };
 
   const renderPreview = () => {
-    // React 图表代码渲染
-    if (isReactChartCode(code, lang)) {
-      return <ReactChartRenderer code={code} lang={lang} />;
-    }
-
     // HTML 渲染
     if (lang === "html") {
       const sanitizedHtml = sanitizeHtml(code);
@@ -236,24 +230,6 @@ const PreviewablePre = ({
   );
 };
 
-// Helper function to check if code is React chart code
-function isReactChartCode(code: string, lang: string): boolean {
-  // React 图表组件检测
-  if (lang === "jsx" || lang === "tsx") {
-    return (
-      code.includes("recharts") ||
-      code.includes("LineChart") ||
-      code.includes("BarChart") ||
-      code.includes("PieChart") ||
-      code.includes("AreaChart") ||
-      code.includes("ComposedChart") ||
-      code.includes("ResponsiveContainer")
-    );
-  }
-
-  return false;
-}
-
 export async function highlight(
   code: string,
   lang: BundledLanguage | (string & {}),
@@ -280,14 +256,9 @@ export async function highlight(
   }
 
   // Check if this should use PreviewablePre with tabs
-  const shouldUsePreview = (code: string, lang: string): boolean => {
-    // Always use preview for HTML and Markdown
-    if (lang === "html" || lang === "markdown" || lang === "md") {
-      return true;
-    }
-
-    // Use preview for React chart components
-    return isReactChartCode(code, lang);
+  const shouldUsePreview = (_code: string, lang: string): boolean => {
+    // Only use preview for HTML and Markdown
+    return lang === "html" || lang === "markdown" || lang === "md";
   };
 
   // For preview-enabled code blocks, use PreviewablePre with tabs

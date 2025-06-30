@@ -26,9 +26,6 @@ importers:
       '@ai-sdk/xai':
         specifier: ^1.2.16
         version: 1.2.16(zod@3.25.67)
-      '@babel/standalone':
-        specifier: ^7.27.7
-        version: 7.27.7
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.3
         version: 1.13.2
@@ -388,10 +385,6 @@ packages:
 
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/standalone@7.27.7':
-    resolution: {integrity: sha512-vYgHkle44HY5d0qshIR2rKZBfFGHj0OaH7oBAe1NUEkI2DhZdU2+KrEt2qMkdiUjbClQFS8FQQrvdKB8kLn7aw==}
     engines: {node: '>=6.9.0'}
 
   '@better-auth/utils@0.2.5':
@@ -5769,8 +5762,6 @@ snapshots:
   '@antfu/utils@8.1.1': {}
 
   '@babel/runtime@7.27.6': {}
-
-  '@babel/standalone@7.27.7': {}
 
   '@better-auth/utils@0.2.5':
     dependencies:
