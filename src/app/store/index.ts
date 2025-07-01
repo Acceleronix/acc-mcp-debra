@@ -55,7 +55,7 @@ const initialState: AppState = {
   currentProjectId: null,
   toolChoice: "auto",
   allowedMcpServers: undefined,
-  allowedAppDefaultToolkit: [],
+  allowedAppDefaultToolkit: [AppDefaultToolkit.Visualization],
   toolPresets: [],
   openShortcutsPopup: false,
   openChatPreferences: false,
