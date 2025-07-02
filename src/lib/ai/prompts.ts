@@ -53,7 +53,6 @@ ${
   """`.trim()
     : ""
 }
-- If a diagram or chart is requested or would be helpful to express your thoughts, use mermaid code blocks.
 </response_style>`.trim();
 
   return prompt.trim();
