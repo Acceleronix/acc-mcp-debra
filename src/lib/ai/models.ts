@@ -1,6 +1,7 @@
 // models.ts
 import { createOllama } from "ollama-ai-provider";
 import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { anthropic } from "@ai-sdk/anthropic";
 import { xai } from "@ai-sdk/xai";
 import { openrouter } from "@openrouter/ai-sdk-provider";
@@ -63,6 +64,10 @@ const allStaticModels = {
   openRouter: {
     "qwen3-8b:free": openrouter("qwen/qwen3-8b:free"),
     "qwen3-14b:free": openrouter("qwen/qwen3-14b:free"),
+  },
+  google: {
+    "gemini-2.5-flash": google("gemini-2.5-flash"),
+    "gemini-2.5-pro": google("gemini-2.5-pro"),
   },
 };
 
