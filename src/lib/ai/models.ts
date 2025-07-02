@@ -37,10 +37,6 @@ function hasApiKey(provider: string): boolean {
 }
 
 const allStaticModels = {
-  google: {
-    "gemini-2.5-flash": google("gemini-2.5-flash"),
-    "gemini-2.5-pro": google("gemini-2.5-pro"),
-  },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
     "gpt-4.1": openai("gpt-4.1"),
@@ -68,6 +64,10 @@ const allStaticModels = {
   openRouter: {
     "qwen3-8b:free": openrouter("qwen/qwen3-8b:free"),
     "qwen3-14b:free": openrouter("qwen/qwen3-14b:free"),
+  },
+  google: {
+    "gemini-2.5-flash": google("gemini-2.5-flash"),
+    "gemini-2.5-pro": google("gemini-2.5-pro"),
   },
 };
 
