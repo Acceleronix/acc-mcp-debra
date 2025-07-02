@@ -1,7 +1,6 @@
 // models.ts
 import { createOllama } from "ollama-ai-provider";
 import { openai } from "@ai-sdk/openai";
-import { google } from "@ai-sdk/google";
 import { anthropic } from "@ai-sdk/anthropic";
 import { xai } from "@ai-sdk/xai";
 import { openrouter } from "@openrouter/ai-sdk-provider";
@@ -37,6 +36,11 @@ function hasApiKey(provider: string): boolean {
 }
 
 const allStaticModels = {
+  anthropic: {
+    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
+    "claude-4-sonnet": anthropic("claude-sonnet-4-20250514"),
+    "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
+  },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
     "gpt-4.1": openai("gpt-4.1"),
@@ -45,11 +49,6 @@ const allStaticModels = {
     "o4-mini": openai("o4-mini", {
       reasoningEffort: "medium",
     }),
-  },
-  anthropic: {
-    "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
-    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
-    "claude-4-sonnet": anthropic("claude-sonnet-4-20250514"),
   },
   xai: {
     "grok-2": xai("grok-2-1212"),
@@ -64,10 +63,6 @@ const allStaticModels = {
   openRouter: {
     "qwen3-8b:free": openrouter("qwen/qwen3-8b:free"),
     "qwen3-14b:free": openrouter("qwen/qwen3-14b:free"),
-  },
-  google: {
-    "gemini-2.5-flash": google("gemini-2.5-flash"),
-    "gemini-2.5-pro": google("gemini-2.5-pro"),
   },
 };
 
