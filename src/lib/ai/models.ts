@@ -38,18 +38,12 @@ function hasApiKey(provider: string): boolean {
 
 const allStaticModels = {
   anthropic: {
-    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
-    "claude-4-sonnet": anthropic("claude-sonnet-4-20250514"),
     "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
+    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
   },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
-    "gpt-4.1": openai("gpt-4.1"),
     "gpt-4.1-mini": openai("gpt-4.1-mini"),
-    "4o": openai("gpt-4o"),
-    "o4-mini": openai("o4-mini", {
-      reasoningEffort: "medium",
-    }),
   },
   xai: {
     "grok-2": xai("grok-2-1212"),
@@ -64,10 +58,6 @@ const allStaticModels = {
   openRouter: {
     "qwen3-8b:free": openrouter("qwen/qwen3-8b:free"),
     "qwen3-14b:free": openrouter("qwen/qwen3-14b:free"),
-  },
-  google: {
-    "gemini-2.5-flash": google("gemini-2.5-flash"),
-    "gemini-2.5-pro": google("gemini-2.5-pro"),
   },
 };
 
