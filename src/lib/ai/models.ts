@@ -41,8 +41,8 @@ const allStaticModels = {
     "gpt-4.1-mini": openai("gpt-4.1-mini"),
   },
   xai: {
-    "grok-3-mini": xai("grok-3-mini-latest"),
     "grok-3-mini-fast": xai("grok-3-mini-fast"),
+    "grok-3": xai("grok-3-latest"),
   },
   anthropic: {
     "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
