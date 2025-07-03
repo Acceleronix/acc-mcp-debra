@@ -36,18 +36,17 @@ function hasApiKey(provider: string): boolean {
 }
 
 const allStaticModels = {
-  anthropic: {
-    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
-    "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
-  },
   openai: {
     "4o-mini": openai("gpt-4o-mini", {}),
     "gpt-4.1-mini": openai("gpt-4.1-mini"),
   },
   xai: {
-    "grok-2": xai("grok-2-1212"),
     "grok-3-mini": xai("grok-3-mini-latest"),
-    "grok-3": xai("grok-3-latest"),
+    "grok-3-mini-fast": xai("grok-3-mini-fast"),
+  },
+  anthropic: {
+    "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
+    "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
   },
   ollama: {
     "gemma3:1b": ollama("gemma3:1b"),
