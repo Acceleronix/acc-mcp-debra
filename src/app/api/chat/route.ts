@@ -205,7 +205,7 @@ export async function POST(request: Request) {
           maxRetries: 0,
           tools: vercelAITooles,
           toolChoice: computedToolChoice,
-          temperature: isGpt5Mini ? 1 : 0,
+          temperature: isGpt5Mini ? 0.2 : 0,
           onFinish: async ({ response, usage }) => {
             const appendMessages = appendResponseMessages({
               messages: messages.slice(-1),
