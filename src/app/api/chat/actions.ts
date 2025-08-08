@@ -48,11 +48,14 @@ export async function generateTitleFromUserMessageAction({
   await getSession();
   const prompt = toAny(message.parts?.at(-1))?.text || "unknown";
 
+  // Check if this is gpt-5-mini which requires maxCompletionTokens instead of maxTokens
+  const isGpt5Mini = model.modelId === "gpt-5-mini";
+
   const { text: title } = await generateText({
     model,
     system: CREATE_THREAD_TITLE_PROMPT,
     prompt,
-    maxTokens: 200,
+    ...(isGpt5Mini ? { maxCompletionTokens: 200 } : { maxTokens: 200 }),
   });
 
   return title.trim();
