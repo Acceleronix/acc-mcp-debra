@@ -192,6 +192,9 @@ export async function POST(request: Request) {
           })
           .unwrap();
 
+        // Check if this is gpt-5-mini which requires temperature: 1
+        const isGpt5Mini = model.modelId === "gpt-5-mini";
+
         const result = streamText({
           model,
           system: systemPrompt,
@@ -202,6 +205,7 @@ export async function POST(request: Request) {
           maxRetries: 0,
           tools: vercelAITooles,
           toolChoice: computedToolChoice,
+          temperature: isGpt5Mini ? 1 : 0,
           onFinish: async ({ response, usage }) => {
             const appendMessages = appendResponseMessages({
               messages: messages.slice(-1),
