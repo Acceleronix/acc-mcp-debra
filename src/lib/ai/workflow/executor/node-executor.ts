@@ -85,10 +85,15 @@ export const llmNodeExecutor: NodeExecutor<LLMNodeData> = async ({
     }),
   );
 
+  // Check if this is gpt-5-mini which doesn't support custom temperature
+  const isGpt5Mini = model.modelId === "gpt-5-mini";
+
   const response = await generateText({
     model,
     messages,
     maxSteps: 1,
+    // Only set temperature for models that support custom temperature
+    ...(!isGpt5Mini && { temperature: 0 }),
   });
 
   return {
@@ -174,11 +179,17 @@ export const toolNodeExecutor: NodeExecutor<ToolNodeData> = async ({
         ).parts[0]?.text
       : undefined;
 
+    const toolModel = customModelProvider.getModel(node.model);
+    // Check if this is gpt-5-mini which doesn't support custom temperature
+    const isGpt5Mini = toolModel.modelId === "gpt-5-mini";
+
     const response = await generateText({
-      model: customModelProvider.getModel(node.model),
+      model: toolModel,
       maxSteps: 1,
       toolChoice: "required", // Force the model to call the tool
       prompt,
+      // Only set temperature for models that support custom temperature
+      ...(!isGpt5Mini && { temperature: 0 }),
       tools: {
         [node.tool.id]: {
           description: node.tool.description,

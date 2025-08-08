@@ -128,6 +128,9 @@ export async function generateExampleToolSchemaAction(options: {
       additionalProperties: false,
     }),
   );
+  // Check if this is gpt-5-mini which doesn't support custom temperature
+  const isGpt5Mini = model.modelId === "gpt-5-mini";
+
   const { object } = await generateObject({
     model,
     schema,
@@ -135,6 +138,8 @@ export async function generateExampleToolSchemaAction(options: {
       toolInfo: options.toolInfo,
       prompt: options.prompt,
     }),
+    // Only set temperature for models that support custom temperature
+    ...(!isGpt5Mini && { temperature: 0 }),
   });
 
   return object;
@@ -306,11 +311,17 @@ export async function generateObjectAction({
   };
   schema: JSONSchema7 | ObjectJsonSchema7;
 }) {
+  const selectedModel = customModelProvider.getModel(model);
+  // Check if this is gpt-5-mini which doesn't support custom temperature
+  const isGpt5Mini = selectedModel.modelId === "gpt-5-mini";
+
   const result = await generateObject({
-    model: customModelProvider.getModel(model),
+    model: selectedModel,
     system: prompt.system,
     prompt: prompt.user,
     schema: jsonSchemaToZod(schema),
+    // Only set temperature for models that support custom temperature
+    ...(!isGpt5Mini && { temperature: 0 }),
   });
   return result.object;
 }
