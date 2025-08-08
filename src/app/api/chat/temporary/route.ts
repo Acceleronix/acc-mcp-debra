@@ -28,9 +28,6 @@ export async function POST(request: Request) {
     const userPreferences =
       (await userRepository.getPreferences(session.user.id)) || undefined;
 
-    // Check if this is gpt-5-mini which doesn't support custom temperature
-    const isGpt5Mini = model.modelId === "gpt-5-mini";
-
     return streamText({
       model,
       system: `${buildUserSystemPrompt(session.user, userPreferences)} ${
@@ -40,8 +37,7 @@ export async function POST(request: Request) {
       maxSteps: 10,
       experimental_continueSteps: true,
       experimental_transform: smoothStream({ chunking: "word" }),
-      // Only set temperature for models that support custom temperature
-      ...(!isGpt5Mini && { temperature: 0 }),
+      temperature: 0,
     }).toDataStreamResponse();
   } catch (error: any) {
     logger.error(error);

@@ -48,14 +48,11 @@ export async function generateTitleFromUserMessageAction({
   await getSession();
   const prompt = toAny(message.parts?.at(-1))?.text || "unknown";
 
-  // Check if this is gpt-5-mini which requires maxCompletionTokens instead of maxTokens
-  const isGpt5Mini = model.modelId === "gpt-5-mini";
-
   const { text: title } = await generateText({
     model,
     system: CREATE_THREAD_TITLE_PROMPT,
     prompt,
-    ...(isGpt5Mini ? { maxCompletionTokens: 200 } : { maxTokens: 200 }),
+    maxTokens: 200,
   });
 
   return title.trim();
@@ -128,9 +125,6 @@ export async function generateExampleToolSchemaAction(options: {
       additionalProperties: false,
     }),
   );
-  // Check if this is gpt-5-mini which doesn't support custom temperature
-  const isGpt5Mini = model.modelId === "gpt-5-mini";
-
   const { object } = await generateObject({
     model,
     schema,
@@ -138,8 +132,7 @@ export async function generateExampleToolSchemaAction(options: {
       toolInfo: options.toolInfo,
       prompt: options.prompt,
     }),
-    // Only set temperature for models that support custom temperature
-    ...(!isGpt5Mini && { temperature: 0 }),
+    temperature: 0,
   });
 
   return object;
@@ -311,17 +304,12 @@ export async function generateObjectAction({
   };
   schema: JSONSchema7 | ObjectJsonSchema7;
 }) {
-  const selectedModel = customModelProvider.getModel(model);
-  // Check if this is gpt-5-mini which doesn't support custom temperature
-  const isGpt5Mini = selectedModel.modelId === "gpt-5-mini";
-
   const result = await generateObject({
-    model: selectedModel,
+    model: customModelProvider.getModel(model),
     system: prompt.system,
     prompt: prompt.user,
     schema: jsonSchemaToZod(schema),
-    // Only set temperature for models that support custom temperature
-    ...(!isGpt5Mini && { temperature: 0 }),
+    temperature: 0,
   });
   return result.object;
 }

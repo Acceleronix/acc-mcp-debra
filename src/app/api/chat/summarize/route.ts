@@ -38,17 +38,12 @@ export async function POST(request: Request) {
         }),
     );
 
-    const model = customModelProvider.getModel(chatModel);
-    // Check if this is gpt-5-mini which doesn't support custom temperature
-    const isGpt5Mini = model.modelId === "gpt-5-mini";
-
     const result = streamText({
-      model,
+      model: customModelProvider.getModel(chatModel),
       system: SUMMARIZE_PROMPT,
       experimental_transform: smoothStream({ chunking: "word" }),
       messages,
-      // Only set temperature for models that support custom temperature
-      ...(!isGpt5Mini && { temperature: 0 }),
+      temperature: 0,
     });
 
     return result.toDataStreamResponse();
