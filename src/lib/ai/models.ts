@@ -37,7 +37,7 @@ function hasApiKey(provider: string): boolean {
 
 const allStaticModels = {
   openai: {
-    "gpt-4.1-mini": openai("gpt-4.1-mini"),
+    "gpt-5-mini": openai("gpt-5-mini"),
     "4o-mini": openai("gpt-4o-mini", {}),
   },
   xai: {
