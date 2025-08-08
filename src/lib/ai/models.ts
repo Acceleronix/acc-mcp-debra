@@ -2,7 +2,7 @@
 import { createOllama } from "ollama-ai-provider";
 import { openai } from "@ai-sdk/openai";
 import { anthropic } from "@ai-sdk/anthropic";
-import { xai } from "@ai-sdk/xai";
+// import { xai } from "@ai-sdk/xai";  // Temporarily disabled
 import { openrouter } from "@openrouter/ai-sdk-provider";
 import { LanguageModel } from "ai";
 import {
@@ -24,8 +24,8 @@ function hasApiKey(provider: string): boolean {
       return !!process.env.OPENAI_API_KEY;
     case "anthropic":
       return !!process.env.ANTHROPIC_API_KEY;
-    case "xai":
-      return !!process.env.XAI_API_KEY;
+    // case "xai":  // Temporarily disabled
+    //   return !!process.env.XAI_API_KEY;
     case "ollama":
       return !!process.env.OLLAMA_BASE_URL;
     case "openRouter":
@@ -40,10 +40,10 @@ const allStaticModels = {
     "gpt-4.1-mini": openai("gpt-4.1-mini"),
     "4o-mini": openai("gpt-4o-mini", {}),
   },
-  xai: {
-    "grok-3-mini-fast": xai("grok-3-mini-fast"),
-    "grok-3": xai("grok-3-latest"),
-  },
+  // xai: {  // Temporarily disabled
+  //   "grok-3-mini-fast": xai("grok-3-mini-fast"),
+  //   "grok-3": xai("grok-3-latest"),
+  // },
   anthropic: {
     "claude-3-7-sonnet": anthropic("claude-3-7-sonnet-latest"),
     "claude-3-5-sonnet": anthropic("claude-3-5-sonnet-latest"),
@@ -68,8 +68,8 @@ const staticModels = Object.fromEntries(
 const staticUnsupportedModels = new Set(
   [
     staticModels.openai?.["o4-mini"],
-    staticModels.xai?.["grok-3"],
-    staticModels.xai?.["grok-3-mini"],
+    // staticModels.xai?.["grok-3"],  // Temporarily disabled
+    // staticModels.xai?.["grok-3-mini"],  // Temporarily disabled
     staticModels.ollama?.["gemma3:1b"],
     staticModels.ollama?.["gemma3:4b"],
     staticModels.ollama?.["gemma3:12b"],
