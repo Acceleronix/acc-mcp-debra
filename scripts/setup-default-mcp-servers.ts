@@ -10,13 +10,13 @@ const DEFAULT_MCP_SERVERS = [
       url: "https://cmp-mcp-server.zlinoliver.workers.dev/sse",
     } as MCPServerConfig,
   },
+  {
+    name: "acc-mcp-server",
+    config: {
+      url: "https://acc-mcp-server.zlinoliver.workers.dev/sse",
+    } as MCPServerConfig,
+  },
   // Temporarily disabled MCP servers:
-  // {
-  //   name: "acc-mcp-server",
-  //   config: {
-  //     url: "https://acc-mcp-server.zlinoliver.workers.dev/sse",
-  //   } as MCPServerConfig,
-  // },
   // {
   //   name: "swagger-mcp-server",
   //   config: {
